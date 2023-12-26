@@ -1,0 +1,21 @@
+<mat-drawer-container autosize class="min-h-full max-w-7xl mx-auto border-x">
+    <mat-drawer #categoryDrawer mode="side" class="p-6">
+        <app-filters  (showCategory)="onShowCategory($event)"></app-filters>
+    </mat-drawer>
+    <mat-drawer-content class="p-6">
+        <mat-card class="max-w-7xl mx-auto mb-2">
+            <button mat-raised-button color="primary" class="show-categories" (click)="categoryDrawer.toggle()">Categories</button>
+        </mat-card>
+        <app-products-header (columnsCounChange)="onColumnsCountChange($event)" 
+            (itemsCountChange)="onItemsCountChange($event)" 
+            (sortChange)="onSortChange($event)"></app-products-header>
+       <mat-grid-list 
+        gutterSize="16"
+       [cols]="cols"
+       [rowHeight]="rowHeight">
+            <mat-grid-tile *ngFor="let item of products">
+                <app-product-box [product]="item" (addToCarts)="onAddCart($event)" class="w-full" [fullWidthMode]="cols === 1"></app-product-box>
+            </mat-grid-tile>           
+       </mat-grid-list>
+    </mat-drawer-content>
+</mat-drawer-container>
